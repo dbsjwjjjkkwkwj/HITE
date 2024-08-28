@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HITE is an intuitive platform designed to empower students by allowing them to create and showcase personalized portfolios.">
+    <meta name="keywords" content="portfolio, students, showcase, HITE, learning platform">
+    <meta name="author" content="HITE Team">
+    <title>HITE - Empowering Students</title>
+    <link href="https://fonts.googleapis.com/css2?family=Avant+Garde+Medium&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Avant Garde Medium', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8; /* Light gray background for the whole page */
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            background-color: #fff; /* Header background color */
+            color: #000;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            position: relative;
+            border-bottom: 2px solid #000; /* Optional: Add a border to distinguish the header */
+            transform: translateY(-100%);
+            animation: slideUp 1s forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        header img {
+            max-width: 120px;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+
+        nav {
+            background: #fff; /* Navigation background color */
+            color: #000;
+            padding: 10px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #000; /* Optional: Add a border to distinguish the navigation */
+        }
+
+        nav a {
+            color: #000;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+
+        .container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            text-align: center;
+            color: #000;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        p {
+            margin: 10px 0;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .features, .founders {
+            margin-top: 50px;
+        }
+
+        .features h3, .founders h3 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .features p, .founders p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .feature-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .feature-tabs button {
+            background-color: #0056b3; /* Blue color */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .feature-tabs button.active {
+            background-color: #003d7a; /* Darker blue color */
+        }
+
+        .feature-content {
+            display: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .feature-content.active {
+            display: block;
+        }
+
+        .founder-details {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .founder-content {
+            display: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .founder-content.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .founder-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .founder-controls button {
+            background-color: #0056b3; /* Blue color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .founder-controls button:hover {
+            background-color: #003d7a; /* Darker blue color */
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        footer {
+            background-color: #fff; /* Footer background color */
+            color: #000;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 40px;
+            font-size: 16px;
+            border-top: 2px solid #000; /* Optional: Add a border to distinguish the footer */
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            max-width: 500px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .contact-form input[type="submit"] {
+            background-color: #0056b3; /* Blue color */
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .contact-form input[type="submit"]:hover {
+            background-color: #003d7a; /* Darker blue color */
+        }
+
+        .contact-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            color: #000;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .contact-info {
+            text-align: center; /* Center align the contact info */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="images/HITELogo.png" alt="HITE Logo">
+        HITE - Empowering Students
+    </header>
+
+    <nav>
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#founders">Founders</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="container" id="about">
+        <h2>About the App</h2>
+        <p>Our app is designed to empower students by providing an intuitive platform for creating and showcasing personalized portfolios. Whether you're an aspiring artist, designer, or creator, our app offers a seamless way to organize your work, highlight your achievements, and present your unique skills to the world. With easy-to-use tools, customizable templates, and a user-friendly interface, building your portfolio has never been easier. Let our app help you stand out and make your mark in your field.</p>
+    </div>
+
+    <div class="container features" id="features">
+        <h2>App Features</h2>
+        <div class="feature-tabs">
+            <button class="tab-button active" data-tab="career-advice">Career Advice</button>
+            <button class="tab-button" data-tab="portfolio-building">Portfolio Building and Improvement</button>
+            <button class="tab-button" data-tab="skill-maximisation">Skill Maximisation</button>
+            <button class="tab-button" data-tab="job-assistance">Assistance for Job and Internship Seekers</button>
+            <button class="tab-button" data-tab="career-guidance">Career Guidance</button>
+        </div>
+        <div id="career-advice" class="feature-content active">
+            <h3>Career Advice</h3>
+            <p>Our Career Advice feature provides students with personalized guidance on how to navigate their career paths. From choosing the right career options to preparing for interviews and networking, this feature offers valuable insights and expert tips to help students make informed decisions about their professional future.</p>
+        </div>
+        <div id="portfolio-building" class="feature-content">
+            <h3>Portfolio Building and Improvement</h3>
+            <p>The Portfolio Building and Improvement feature allows students to create and enhance their portfolios with ease. With a variety of customizable templates and tools, students can showcase their work in a professional manner, receive feedback, and continuously improve their portfolios to reflect their best achievements.</p>
+        </div>
+        <div id="skill-maximisation" class="feature-content">
+            <h3>Skill Maximisation</h3>
+            <p>Skill Maximisation helps students identify and develop their skills through targeted exercises and resources. This feature provides personalized recommendations for skill enhancement, offering students the tools they need to reach their full potential and stay competitive in their chosen fields.</p>
+        </div>
+        <div id="job-assistance" class="feature-content">
+            <h3>Assistance for Job and Internship Seekers</h3>
+            <p>Our Assistance for Job and Internship Seekers feature offers support in finding and securing job and internship opportunities. From resume building to application tips and interview preparation, students receive comprehensive assistance to increase their chances of landing their desired positions.</p>
+        </div>
+        <div id="career-guidance" class="feature-content">
+            <h3>Career Guidance</h3>
+            <p>Career Guidance provides students with expert advice and resources to help them make strategic career decisions. Whether they're exploring different career paths or seeking guidance on career growth, this feature offers valuable support to help students achieve their professional goals.</p>
+        </div>
+    </div>
+
+    <div class="container founders" id="founders">
+        <h2>Founders</h2>
+        <div class="founder-details">
+            <div id="humaid-shaikh" class="founder-content active">
+                <h3>Humaid Shaikh</h3>
+                <p>Humaid Shaikh, our Project Manager and Marketing Manager, has a distinguished career in project management and marketing. With over 15 years of experience leading successful campaigns and projects across various sectors, Humaid has been instrumental in the strategic direction of HITE. His extensive background in digital marketing and passion for educational technology have shaped the project's success. Humaid’s leadership skills and marketing expertise have fostered partnerships and built a robust brand presence, driving the project's growth and impact.</p>
+            </div>
+            <div id="alexander-bhatt" class="founder-content">
+                <h3>Alexander Bhatt</h3>
+                <p>Alexander Bhatt, our Product Owner and Product Manager, brings a wealth of experience in product development and management. Having previously worked with leading tech companies, Alexander has a proven track record in launching and scaling innovative products. His strong background in user experience design and agile methodologies has been crucial in defining the product vision for HITE. Alexander’s focus on user-centered design and ability to translate complex requirements into actionable development tasks have been key to delivering a high-quality and impactful platform.</p>
+            </div>
+            <div id="jagath-raj-kunche" class="founder-content">
+                <h3>Jagath Raj Kunche</h3>
+                <p>Jagath Raj Kunche, our Business Analyst and Finance Manager, combines expertise in business analysis and finance to provide valuable insights and strategies for HITE. With a background in financial planning and analysis, Jagath has played an essential role in managing the project’s budget, forecasting financial performance, and ensuring cost-effective operations. His analytical skills and attention to detail have helped in identifying growth opportunities and optimizing resource allocation, contributing to the overall financial health and success of the project.</p>
+            </div>
+            <div id="aanya-arney" class="founder-content">
+                <h3>Aanya Arney</h3>
+                <p>Aanya Arney, our Customer Service Manager, has been pivotal in ensuring a positive user experience for HITE. With extensive experience in managing customer support teams and developing effective service strategies, Aanya has implemented systems to address user inquiries, feedback, and concerns efficiently. Her commitment to providing exceptional customer service and her ability to build strong relationships with users have been key to enhancing overall satisfaction and engagement with the platform.</p>
+            </div>
+        </div>
+        <div class="founder-controls">
+            <button id="prev-founder">Previous</button>
+            <button id="next-founder">Next</button>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-info">
+            <p>If you have any questions or need further information, feel free to reach out to us!</p>
+            <div class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea rows="4" placeholder="Your Message" required></textarea>
+                <input type="submit" value="Send">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-button');
+            const featureContents = document.querySelectorAll('.feature-content');
+            const founderContents = document.querySelectorAll('.founder-content');
+            let currentIndex = 0;
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    featureContents.forEach(content => {
+                        if (content.id === tabId) {
+                            content.classList.add('active');
+                        } else {
+                            content.classList.remove('active');
+                        }
+                    });
+                });
+            });
+
+            const updateFounderContent = () => {
+                founderContents.forEach((content, index) => {
+                    content.classList.remove('active');
+                    if (index === currentIndex) {
+                        content.classList.add('active');
+                    }
+                });
+            };
+
+            document.getElementById('prev-founder').addEventListener('click', () => {
+                currentIndex = (currentIndex === 0) ? founderContents.length - 1 : currentIndex - 1;
+                updateFounderContent();
+            });
+
+            document.getElementById('next-founder').addEventListener('click', () => {
+                currentIndex = (currentIndex === founderContents.length - 1) ? 0 : currentIndex + 1;
+                updateFounderContent();
+            });
+
+            // Show the container with animation
+            const containers = document.querySelectorAll('.container');
+            containers.forEach(container => {
+                setTimeout(() => container.classList.add('visible'), 100);
+            });
+        });
+    </script>
+</body>
+</html>
